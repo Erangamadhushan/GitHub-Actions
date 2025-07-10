@@ -1,0 +1,32 @@
+name: Hello World Workflow
+
+# This workflow runs when you push to the main branch
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+# A workflow can have multiple jobs
+jobs:
+  hello-job:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    
+    # Steps represent a sequence of tasks
+    steps:
+    # This action checks out your repository code
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    # This step runs a simple command
+    - name: Say hello
+      run: echo "Hello, GitHub Actions!"
+    
+    # This step shows some system information
+    - name: Show system info
+      run: |
+        echo "Running on: $(uname -a)"
+        echo "Current directory: $(pwd)"
+        echo "Files in current directory:"
+        ls -la
