@@ -1,0 +1,23 @@
+name: Multiple OS Test Workflow
+
+on:
+    push:
+        branches: [ main ]
+    pull_request:
+        branches: [ main ]
+
+jobs:
+    test:
+        runs-on: ${{ matrix.os}}
+        strategy:
+            matrix:
+                os: [ ubuntu-latest, windows-latest, macos-latest ]
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+    
+            - name: Show OS info
+              run: |
+                echo "Running on ${{ matrix.os}}"
+                echo "Current time: $(date)"
