@@ -1,0 +1,51 @@
+name: About me
+
+on:
+    workflow_dispatch: # Allows manual triggering of the workflow
+    push:
+        branches: [ main ]
+    pull_request:
+        branches: [ main ]
+    schedule:
+    # Every Monday at 9:00 AM UTC
+    - cron: '0 9 * * 1'
+    
+    # Every Monday at 6:00 PM UTC
+    - cron: '0 18 * * 1'
+    
+    # Every Monday at 8:30 AM UTC
+    - cron: '30 8 * * 1'
+    
+    # Multiple times on Monday (9 AM and 5 PM)
+    - cron: '0 9 * * 1'
+    - cron: '0 17 * * 1'
+
+jobs:
+    about-me:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Personal Info
+              run: |
+                echo "Hello, I'm Eranga!"
+                echo "I'm a software developer with a passion for automation and DevOps."
+                echo "I love working with GitHub Actions to streamline workflows and improve productivity."
+                echo "My github username is: ${{ github.actor}}"
+                echo "Repository: ${{ github.repository }}"
+
+            - name: Current Date and Time Informations
+              run: |
+                echo "Current date and time: $(date)"
+                echo "Running on: $(uname -a)"
+                echo "Current directory: $(pwd)"
+                echo "Files in current directory:"
+                ls -la
+            
+            - name: Create a file
+              run : |
+                echo "This is a sample file created by GitHub Actions." > sample.txt
+                echo "Sample file created successfully."
+
+            - name: Display File Contents
+              run: |
+                echo "Contents of sample.txt:"
+                cat sample.txt
