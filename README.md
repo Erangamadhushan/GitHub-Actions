@@ -27,3 +27,46 @@ GitHub Actions lets you create automated workflows that can build, test, package
 - **Secrets management** for handling sensitive information like API keys
 
 Think of GitHub Actions as your reliable assistant that never forgets to run tests, never gets tired of deploying code, and works 24/7 to keep your development process smooth and automated.
+
+
+## Example workflow
+```yml
+name: Workflow Name  # Name of your workflow
+
+on:
+  push:
+    branches:
+      - main  # Trigger on push to the 'main' branch
+  pull_request:
+    branches:
+      - main  # Trigger on pull request to 'main'
+
+jobs:
+  build:  # Name of the job
+    runs-on: ubuntu-latest  # Operating system of the runner
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4  # Action to checkout the repository code
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'  # Specify Node.js version
+
+      - name: Install dependencies
+        run: npm install  # Run a shell command
+
+      - name: Run tests
+        run: npm test  # Run another shell command
+```
+
+## Key Elements:
+- `name`: The name of the workflow.
+- `on`: Specifies the event(s) that trigger the workflow.
+- `jobs`: Defines one or more jobs within the workflow.
+- `runs-on`: Specifies the runner environment for a job.
+- `steps`: Lists the individual steps within a job
+- `uses`: Specifies an action to use from the GitHub Marketplace or a local action.
+- `with`: Provides input parameters to an action
+- `run`: Executes a shell command
