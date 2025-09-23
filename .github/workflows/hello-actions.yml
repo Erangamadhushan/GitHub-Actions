@@ -15,7 +15,12 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-        run: echo "Hello, welcome to my GitHub Actions workflow!"
+        run: |
+          echo "Hello, welcome to my GitHub Actions workflow!"
+          echo "Repository: ${{ github.repository }}"
+          echo "Event name: ${{ github.event_name }}"
+          echo "Actor: ${{ github.actor }}"
+          echo "Workflow run ID: ${{ github.run_id }}"
         with:
           fetch-depth: 1
 
@@ -23,7 +28,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Say Goodbye
+        uses: actions/checkout@v2
         with:
           fetch-depth: 1
 
-        run: echo "Goodbye from GitHub Actions! Have a great day!"
+        run: |
+          echo "Goodbye from GitHub Actions! Have a great day!"
+          echo "Repository: ${{ github.repository }}"
+          echo "Event name: ${{ github.event_name }}"
+          echo "Actor: ${{ github.actor }}"
+          echo "Workflow run ID: ${{ github.run_id }}"
