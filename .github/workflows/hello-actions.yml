@@ -1,36 +1,31 @@
 name: Hello Actions
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
   pull_request:
-    branches:
-      - main
+    branches: [ main ]
   schedule:
-    - cron: '0 12 * * 1' # Every Monday at 12:00 PM UTC
-  workflow_dispatch:
+    - cron: '0 12 * * *' # Runs daily at noon UTC
+  workflow_dispatch: # Allows manual triggering of the workflow
+
 jobs:
-  hello-actions-job:
+  hello-job:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v4
+      
+      - name: Greet the World
+        run: echo "Hello, World! This is a scheduled greeting from GitHub Actions. Triggered by: ${{ github.event_name }}"
+      
+      - name: Show system info
         run: |
-          echo "Repository: ${{ github.repository }}"
-          echo "Event name: ${{ github.event_name }}"
-          echo "Actor: ${{ github.actor }}"
-          echo "Workflow run ID: ${{ github.run_id }}"
-        with:
-          fetch-depth: 1
-
-  good-bye-job:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Say Goodbye
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 1
-
+          echo "Running on: $(uname -a)"
+          echo "Current directory: $(pwd)"
+          echo "Files in current directory:"
+          ls -la
+      
+      - name: Display GitHub context
         run: |
           echo "Repository: ${{ github.repository }}"
           echo "Event name: ${{ github.event_name }}"
