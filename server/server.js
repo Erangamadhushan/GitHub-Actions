@@ -1,32 +1,17 @@
 const express = require('express');
+const cors = require('cors');
+const bodyParser = require('body-parser');
 const app = express();
-const PORT = process.env.PORT || 3000;
+const port = 3000;
+
+app.use(cors());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get('/', (req, res) => {
-    res.json({status: 'OK', message: new Date().toISOString() });
+  res.send('Hello World!');
 });
 
-app.get('/health', (req, res) => {
-    res.json({status: 'OK', message: 'Server is healthy'});
+app.listen(port, () => {
+  console.log(`Server is running at http://localhost:${port}`);
 });
-
-app.get('/api/users', (req, res) => {
-    res.json({
-        users: [
-            'alice',
-            'Bob',
-            'Charlie',
-            'John',
-            'Jane'
-        ]
-    });
-});
-
-// Only start the server if this file is run directly (not imported for testing)
-if (require.main === module) {
-    app.listen(PORT, () => {
-        console.log(`Server is running on http://localhost:${PORT}`);
-    });
-}
-
-module.exports = app;
