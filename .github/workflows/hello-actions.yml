@@ -6,8 +6,8 @@ on:
   pull_request:
     branches:
       - main
-  # schedule:
-  #   - cron: '0 12 * * 1' # Every Monday at 12:00 PM UTC
+  schedule:
+    - cron: '0 12 * * 1' # Every Monday at 12:00 PM UTC
   workflow_dispatch:
 jobs:
   hello-actions-job:
@@ -15,6 +15,7 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+        run: echo "Hello, welcome to my GitHub Actions workflow!"
         with:
           fetch-depth: 1
 
@@ -22,5 +23,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Say Goodbye
+        with:
+          fetch-depth: 1
+
         run: echo "Goodbye from GitHub Actions! Have a great day!"
-        
