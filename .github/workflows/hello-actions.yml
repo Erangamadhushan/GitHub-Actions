@@ -16,7 +16,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
         run: |
-          echo "Hello, welcome to my GitHub Actions workflow!"
           echo "Repository: ${{ github.repository }}"
           echo "Event name: ${{ github.event_name }}"
           echo "Actor: ${{ github.actor }}"
@@ -33,7 +32,6 @@ jobs:
           fetch-depth: 1
 
         run: |
-          echo "Goodbye from GitHub Actions! Have a great day!"
           echo "Repository: ${{ github.repository }}"
           echo "Event name: ${{ github.event_name }}"
           echo "Actor: ${{ github.actor }}"
