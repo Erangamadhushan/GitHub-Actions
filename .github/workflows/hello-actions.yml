@@ -22,5 +22,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Say Goodbye
-        run: echo "Goodbye from GitHub Actions! Triggered by: ${{ github.event_name }}"
+        run: echo "Goodbye from GitHub Actions! Have a great day!"
         shell: bash
