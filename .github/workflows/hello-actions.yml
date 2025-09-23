@@ -1,0 +1,27 @@
+name: Hello Actions
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  schedule:
+    - cron: '0 12 * * 1' # Every Monday at 12:00 PM UTC
+  workflow_dispatch:
+jobs:
+  hello-actions-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        shell: bash
+        run: echo "Checked out the repository successfully."
+
+  good-bye-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Say Goodbye
+        run: echo "Goodbye from GitHub Actions! Triggered by: ${{ github.event_name }}"
+        shell: bash
+        
