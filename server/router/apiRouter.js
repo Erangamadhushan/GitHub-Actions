@@ -1,9 +1,37 @@
 const express = require('express');
 const app = express();
+const fs = require('fs');
+const path = require('path');
+const cors = require('cors');
+const bodyParser = require('body-parser');
 const port = 3000;
 const User = require('../models/UserModel');
 
 const router = express.Router();
+
+const userDataDir = path.join(__dirname, '..', 'data');
+if (!fs.existsSync(userDataDir)) {
+  fs.mkdirSync(userDataDir);
+}
+
+const userDataFile = path.join(userDataDir, 'users.json');
+
+// Initialize users.json if it doesn't exist
+if (!fs.existsSync(userDataFile)) {
+  fs.writeFileSync(userDataFile, JSON.stringify([]));
+}
+
+const saveUsersToFile = (users) => {
+  fs.writeFileSync(userDataFile, JSON.stringify(users, null, 2));
+};
+
+const loadUsersFromFile = () => {
+  if (fs.existsSync(userDataFile)) {
+    const data = fs.readFileSync(userDataFile);
+    return JSON.parse(data);
+  }
+  return [];
+};
 
 // Example route
 router.get('/', (req, res) => {
