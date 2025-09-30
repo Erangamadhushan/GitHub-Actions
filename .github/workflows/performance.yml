@@ -1,0 +1,49 @@
+name: Performance Testing
+
+on:
+  push:
+    branches: [ main ]
+  schedule:
+    - cron: '0 2 * * *' # Daily at 2 AM
+  workflow_dispatch:
+
+jobs:
+  load-test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20.x'
+    
+    - name: Install dependencies
+      run: |
+        npm ci
+        npm install -g autocannon k6
+    
+    - name: Start server
+      run: |
+        npm start &
+        sleep 10
+      env:
+        NODE_ENV: production
+        PORT: 3000
+    
+    - name: Run autocannon load test
+      run: |
+        autocannon -c 100 -d 30 -p 10 http://localhost:3000/api/health > autocannon-results.txt
+    
+    - name: Run k6 load test
+      run: |
+        k6 run tests/load/k6-script.js
+    
+    - name: Upload test results
+      uses: actions/upload-artifact@v4
+      with:
+        name: performance-results
+        path: |
+          autocannon-results.txt
+          k6-results.json
