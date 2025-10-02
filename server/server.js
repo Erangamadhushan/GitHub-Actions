@@ -22,6 +22,15 @@ app.get('/', (req, res) => {
   res.send('Hello World!');
 });
 
+// Health check endpoint
+app.get('/health', (req, res) => {
+  res.status(200).json({ 
+    status: 'OK', 
+    timestamp: new Date().toISOString(),
+    service: 'github-actions-server'
+  });
+});
+
 const userDataDir = path.join(__dirname, 'data');
 if (!fs.existsSync(userDataDir)) {
   fs.mkdirSync(userDataDir);
