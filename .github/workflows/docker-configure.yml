@@ -1,24 +1,84 @@
-name: Docker Configure
+name: Docker Build and Deploy
+
 on:
   push:
-    branches: [ main ]
+    branches: [ main, development ]
   pull_request:
     branches: [ main ]
   workflow_dispatch:
 
-jobs:
-  configure:
-    name: Configure Docker
-    runs-on: ubuntu-latest
+env:
+  REGISTRY: docker.io
+  CLIENT_IMAGE_NAME: erangamadhushan/github-actions-client
+  SERVER_IMAGE_NAME: erangamadhushan/github-actions-server
 
+jobs:
+  build-and-push:
+    name: Build and Push Docker Images
+    runs-on: ubuntu-latest
+    
     steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
 
     - name: Log in to Docker Hub
-      uses: mr-smithers-excellent/docker-build-push@v6
+      uses: docker/login-action@v3
       with:
-        image: erangamadhushan/my-docker-repo
-        registry: docker.io
+        registry: ${{ env.REGISTRY }}
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
+
+    - name: Extract metadata for client
+      id: meta-client
+      uses: docker/metadata-action@v5
+      with:
+        images: ${{ env.CLIENT_IMAGE_NAME }}
+        tags: |
+          type=ref,event=branch
+          type=ref,event=pr
+          type=sha,prefix={{branch}}-
+          type=raw,value=latest,enable={{is_default_branch}}
+
+    - name: Extract metadata for server
+      id: meta-server
+      uses: docker/metadata-action@v5
+      with:
+        images: ${{ env.SERVER_IMAGE_NAME }}
+        tags: |
+          type=ref,event=branch
+          type=ref,event=pr
+          type=sha,prefix={{branch}}-
+          type=raw,value=latest,enable={{is_default_branch}}
+
+    - name: Build and push client image
+      uses: docker/build-push-action@v5
+      with:
+        context: ./client
+        file: ./client/Dockerfile
+        push: true
+        tags: ${{ steps.meta-client.outputs.tags }}
+        labels: ${{ steps.meta-client.outputs.labels }}
+
+    - name: Build and push server image
+      uses: docker/build-push-action@v5
+      with:
+        context: ./server
+        file: ./server/Dockerfile
+        push: true
+        tags: ${{ steps.meta-server.outputs.tags }}
+        labels: ${{ steps.meta-server.outputs.labels }}
+
+  deploy:
+    name: Deploy Application
+    needs: build-and-push
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    
+    steps:
+    - name: Deploy to production
+      run: |
+        echo "Deployment step - integrate with your deployment platform"
+        echo "Client image: ${{ env.CLIENT_IMAGE_NAME }}:latest"
+        echo "Server image: ${{ env.SERVER_IMAGE_NAME }}:latest"
 
     
