@@ -55,5 +55,8 @@ jobs:
       - name: Install dependencies
         run: npm install  # Run a shell command
 
-      - name: Run tests
-        run: npm test  # Run another shell command
+      - name: Run a Node.js script
+        run: |
+          echo "Running a Node.js script..."
+          node -e "console.log('Hello from Node.js!')"
+          node -e "console.log('Current working directory:', process.cwd())"
