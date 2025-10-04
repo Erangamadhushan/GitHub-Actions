@@ -60,3 +60,6 @@ jobs:
           echo "Running a Node.js script..."
           node -e "console.log('Hello from Node.js!')"
           node -e "console.log('Current working directory:', process.cwd())"
+
+      - name: Run tests
+        run: npm test  # Run another shell command
