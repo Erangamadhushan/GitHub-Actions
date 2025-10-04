@@ -4,7 +4,8 @@
   "description": "GitHub Actions is a powerful automation platform built into GitHub that allows you to automate workflows directly within your repositories. Think of it as a way to tell GitHub \"whenever X happens, automatically do Y.\"",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js",
+    "test": "echo 'Server is running...'"
   },
   "repository": {
     "type": "git",
