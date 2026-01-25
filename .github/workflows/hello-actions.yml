@@ -1,28 +1,28 @@
-name: Hello Actions  # Name of your workflow
+name: Hello Actions # Name of your workflow
 
 on:
   push:
     branches:
-      - main  # Trigger on push to the 'main' branch
+      - main # Trigger on push to the 'main' branch
   pull_request:
     branches:
-      - main  # Trigger on pull request to 'main'
+      - main # Trigger on pull request to 'main'
 
 jobs:
-  build:  # Name of the job
-    runs-on: ubuntu-latest  # Operating system of the runner
+  build: # Name of the job
+    runs-on: ubuntu-latest # Operating system of the runner
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4  # Action to checkout the repository code
+        uses: actions/checkout@v4 # Action to checkout the repository code
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'  # Specify Node.js version
+          node-version: "20" # Specify Node.js version
 
       - name: Check Node.js version
-        run: node -v  # Command to check Node.js version
+        run: node -v # Command to check Node.js version
 
       - name: Run a script
         run: |
@@ -33,12 +33,11 @@ jobs:
           echo "Current directory: $(pwd)"
 
       - name: List files in the current directory
-        run: ls -la  # List all files in the current directory
-  
+        run: ls -la # List all files in the current directory
+
   setup-node:
     needs: build
     runs-on: ubuntu-latest
-
 
     steps:
       - name: Checkout code
@@ -47,13 +46,13 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'  # Specify Node.js version
+          node-version: "20" # Specify Node.js version
 
       - name: Verify Node.js installation
         run: node -v
 
       - name: Install dependencies
-        run: npm install  # Run a shell command
+        run: npm install # Run a shell command
 
       - name: Run a Node.js script
         run: |
@@ -62,4 +61,4 @@ jobs:
           node -e "console.log('Current working directory:', process.cwd())"
 
       - name: Run tests
-        run: npm test  # Run another shell command
+        run: npm test # Run another shell command
