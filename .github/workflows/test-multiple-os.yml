@@ -15,7 +15,24 @@ jobs:
 
         steps:
             - name: Checkout code
-              uses: actions/checkout@v4
+              uses: actions/checkout@v5
+
+            - name: Run a script
+              run: |
+                echo "This is running on ${{ matrix.os}}"
+                echo "Hello from GitHub Actions!"
+            
+            - name: Display GitHub context
+              run: |
+                echo "Repository: ${{ github.repository }}"
+                echo "Event name: ${{ github.event_name }}"
+                echo "Actor: ${{ github.actor }}"
+                echo "Workflow run ID: ${{ github.run_id }}"
+
+            - name: Set up Node.js
+              uses: actions/setup-node@v4
+              with:
+                node-version: 20
     
             - name: Show OS info
               run: |
