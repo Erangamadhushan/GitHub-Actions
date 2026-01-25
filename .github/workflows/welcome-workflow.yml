@@ -10,6 +10,9 @@ on:
     - cron: '0 0 * * *' # Runs daily at midnight UTC
   workflow_dispatch: # Allows manual triggering of the workflow
 
+env:
+  GH_TOKEN: ${{ github.token }}
+
 # A workflow can have multiple jobs
 jobs:
   hello-job:
@@ -42,4 +45,4 @@ jobs:
         echo "Workflow run ID: ${{ github.run_id }}"
 
     - name: Create a new message pull request
-      run: gh pr comment -b "PR reviewed by GitHub Actions"
+      run: gh pr comment ${{ github.event.pull_request.number }} --body "Hello from GitHub Actions! This PR was triggered by the ${{ github.event_name }} event."
