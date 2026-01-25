@@ -43,6 +43,3 @@ jobs:
         echo "Event name: ${{ github.event_name }}"
         echo "Actor: ${{ github.actor }}"
         echo "Workflow run ID: ${{ github.run_id }}"
-
-    - name: Create a new message pull request
-      run: gh pr comment ${{ github.event.pull_request.number }} --body "Hello from GitHub Actions! This PR was triggered by the ${{ github.event_name }} event."
