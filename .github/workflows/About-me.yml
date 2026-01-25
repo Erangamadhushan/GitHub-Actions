@@ -10,19 +10,6 @@ on:
     # Every Monday at 9:00 AM UTC
     - cron: "0 9 * * 1"
 
-    # # Every Monday at 6:00 PM UTC
-    # - cron: "0 18 * * 1"
-
-    # # Every Monday at 8:30 AM UTC
-    # - cron: "30 8 * * 1"
-
-    # # Multiple times on Monday (9 AM and 5 PM)
-    # - cron: "0 9 * * 1"
-    # - cron: "0 17 * * 1"
-    # # Every Thursday at 9:00 AM UTC
-    # - cron: "0 9 * * 4"
-    # # Every Friday at 9:00 AM UTC
-    # - cron: "0 9 * * 5"
 
 jobs:
   about-me:
