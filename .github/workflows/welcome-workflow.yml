@@ -42,4 +42,4 @@ jobs:
         echo "Workflow run ID: ${{ github.run_id }}"
 
     - name: Create a new message pull request
-      run: gh pr comment -B "PR reviewed by GitHub Actions"
+      run: gh pr comment -b "PR reviewed by GitHub Actions"
