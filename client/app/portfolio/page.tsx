@@ -3,6 +3,8 @@
 import { useState } from "react";
 import Link from "next/link";
 import { ChevronRight, Heart } from "lucide-react";
+import { projects as allProjects } from "@/data/pages/portfolio/gallery.data";
+import { gallery } from "@/types";
 
 export default function Portfolio() {
   const [selectedCategory, setSelectedCategory] = useState("all");
@@ -16,85 +18,12 @@ export default function Portfolio() {
     { id: "events", label: "Special Events" },
   ];
 
-  const projects = [
-    {
-      id: 1,
-      title: "Sharma - Patel Wedding",
-      category: "wedding",
-      image:
-        "https://images.unsplash.com/photo-1519741497674-611481863552?w=500&h=500&fit=crop",
-      location: "Taj Hotel, Delhi",
-    },
-    {
-      id: 2,
-      title: "Arjun 25th Birthday Bash",
-      category: "birthday",
-      image:
-        "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=500&h=500&fit=crop",
-      location: "Mumbai, India",
-    },
-    {
-      id: 3,
-      title: "Delhi University Convocation 2024",
-      category: "convocation",
-      image:
-        "https://images.unsplash.com/photo-1427504494785-cdde41707539?w=500&h=500&fit=crop",
-      location: "Delhi University Campus",
-    },
-    {
-      id: 4,
-      title: "Corporate Event - TechCorp Summit",
-      category: "events",
-      image:
-        "https://images.unsplash.com/photo-1540575467063-178f50002cbc?w=500&h=500&fit=crop",
-      location: "Bangalore",
-    },
-    {
-      id: 5,
-      title: "Mehta - Gupta Wedding Reception",
-      category: "wedding",
-      image:
-        "https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=500&h=500&fit=crop",
-      location: "Hyderabad Palace",
-    },
-    {
-      id: 6,
-      title: "Priya 30th Birthday Celebration",
-      category: "birthday",
-      image:
-        "https://images.unsplash.com/photo-1504674900769-0c8fcb0aad18?w=500&h=500&fit=crop",
-      location: "Bengaluru Resort",
-    },
-    {
-      id: 7,
-      title: "IIT Bombay Graduation Ceremony",
-      category: "convocation",
-      image:
-        "https://images.unsplash.com/photo-1523580494863-6f3031224c94?w=500&h=500&fit=crop",
-      location: "IIT Bombay",
-    },
-    {
-      id: 8,
-      title: "Annual Gala Dinner 2024",
-      category: "events",
-      image:
-        "https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?w=500&h=500&fit=crop",
-      location: "Five Star Hotel",
-    },
-    {
-      id: 9,
-      title: "Singh - Verma Wedding Ceremony",
-      category: "wedding",
-      image:
-        "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&h=500&fit=crop",
-      location: "Jaipur Fort",
-    },
-  ];
+  
 
   const filteredProjects =
     selectedCategory === "all"
-      ? projects
-      : projects.filter((p) => p.category === selectedCategory);
+      ? allProjects
+      : allProjects.filter((p) => p.category === selectedCategory);
 
   const toggleFavorite = (id: number) => {
     const newFavorites = new Set(favorites);
@@ -148,7 +77,7 @@ export default function Portfolio() {
 
         {/* Portfolio Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-          {filteredProjects.map((project) => (
+          {filteredProjects.map((project: gallery) => (
             <div
               key={project.id}
               className="group bg-card border border-border rounded-lg overflow-hidden hover:border-primary transition-all duration-300"

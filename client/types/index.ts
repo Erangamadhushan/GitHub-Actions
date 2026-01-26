@@ -80,3 +80,11 @@ export interface TimeSlot {
   time: string;
   available: boolean;
 }
+
+export interface gallery {
+  id: number;
+  title: string;
+  category: "wedding" | "birthday" | "convocation" | "events" | "other";
+  image: string;
+  location: string;
+}

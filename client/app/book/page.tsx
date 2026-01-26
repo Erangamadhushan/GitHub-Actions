@@ -9,15 +9,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { ChevronLeft, Calendar, MapPin, Users, Clock } from "lucide-react";
+import { ChevronLeft, Clock } from "lucide-react";
 import type { EventType } from "@/types";
 
 interface BookingFormData {
@@ -51,7 +44,7 @@ const servicePackages: Record<
     },
     {
       name: "Essential",
-      price: 20000,
+      price: 25000,
       duration: 4,
       description: "4 hours coverage for ceremony and reception",
     },
@@ -59,19 +52,19 @@ const servicePackages: Record<
   birthday: [
     {
       name: "Deluxe",
-      price: 8000,
+      price: 10000,
       duration: 6,
       description: "Full party coverage with decorations",
     },
     {
       name: "Standard",
-      price: 5000,
+      price: 7500,
       duration: 4,
       description: "Half-day coverage of main events",
     },
     {
       name: "Basic",
-      price: 3000,
+      price: 5000,
       duration: 2,
       description: "Cake cutting and key moments",
     },
@@ -79,19 +72,19 @@ const servicePackages: Record<
   convocation: [
     {
       name: "Premium",
-      price: 25000,
+      price: 40000,
       duration: 8,
       description: "Full day coverage with group photos",
     },
     {
       name: "Standard",
-      price: 15000,
+      price: 25000,
       duration: 6,
       description: "Ceremony and key moments",
     },
     {
       name: "Ceremony Only",
-      price: 8000,
+      price: 15000,
       duration: 3,
       description: "Convocation ceremony coverage",
     },
@@ -258,7 +251,7 @@ export default function BookPage() {
                               {pkg.name} Package
                             </h3>
                             <span className="text-primary font-bold">
-                              ₹{pkg.price.toLocaleString()}
+                              Rs.{pkg.price.toLocaleString()}
                             </span>
                           </div>
                           <p className="text-sm text-muted-foreground mb-2">
@@ -468,7 +461,7 @@ export default function BookPage() {
                           Total Price:
                         </span>
                         <span className="text-primary font-bold text-lg">
-                          ₹{selectedPackage.price.toLocaleString()}
+                          Rs.{selectedPackage.price.toLocaleString()}
                         </span>
                       </div>
                     </>
