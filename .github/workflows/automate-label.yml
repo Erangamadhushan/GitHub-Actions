@@ -1,24 +1,26 @@
 name: Label Pull Requests
 on:
-    pull_request:
-        types: [opened, edited, reopened, synchronize]
-    workflow_dispatch:
-    schedule:
-    - cron: '0 12 * * 1'  # Runs every Monday at noon
+  push:
+    branches: [main, develop]
+  pull_request:
+    types: [opened, edited, reopened, synchronize]
+  workflow_dispatch:
+  schedule:
+    - cron: "0 12 * * 1" # Runs every Monday at noon
 
 jobs:
-    label-pr:
-        runs-on: ubuntu-latest
+  label-pr:
+    runs-on: ubuntu-latest
 
-        steps:
-          - name: Checkout
-            uses: actions/checkout@v5.0.0
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5.0.0
 
-          - name: Label Pull Request
-            uses: actions-ecosystem/action-add-labels@v1
-            with:
-              github_token: ${{ secrets.GITHUB_TOKEN }}
-              labels: 'automated-label'
-          
-          - name: Confirm Labeling
-            run: echo "Pull request has been labeled with 'automated-label'."
+      - name: Label Pull Request
+        uses: actions-ecosystem/action-add-labels@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          labels: "automated-label"
+
+      - name: Confirm Labeling
+        run: echo "Pull request has been labeled with 'automated-label'."
