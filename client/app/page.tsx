@@ -475,7 +475,7 @@ export default function HomePage() {
 
           <div className="border-t border-border pt-8">
             <p className="text-center text-sm text-muted-foreground">
-              © 2024 LensClick. All rights reserved. Built with care for
+              © {new Date().getFullYear()} LensClick. All rights reserved. Built with care for
               photography lovers.
             </p>
           </div>
