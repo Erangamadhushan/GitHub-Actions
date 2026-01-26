@@ -1,13 +1,19 @@
-'use client'
+"use client";
 
-import React from "react"
+import React from "react";
 
-import { useState } from 'react'
-import Link from 'next/link'
-import { Navbar } from '@/components/navbar'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
+import { useState } from "react";
+import Link from "next/link";
+import { Navbar } from "@/components/navbar";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
 import {
   Mail,
   Phone,
@@ -16,111 +22,115 @@ import {
   Send,
   CheckCircle,
   Camera,
-} from 'lucide-react'
+} from "lucide-react";
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    subject: '',
-    message: '',
-  })
-  const [submitted, setSubmitted] = useState(false)
-  const [loading, setLoading] = useState(false)
+    name: "",
+    email: "",
+    phone: "",
+    subject: "",
+    message: "",
+  });
+  const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    const { name, value } = e.target
+  const handleInputChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >,
+  ) => {
+    const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
       [name]: value,
-    }))
-  }
+    }));
+  };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
-    setLoading(true)
+    e.preventDefault();
+    setLoading(true);
 
     // TODO: Replace with your backend API endpoint
     try {
       // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1000))
-      setSubmitted(true)
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+      setSubmitted(true);
       setFormData({
-        name: '',
-        email: '',
-        phone: '',
-        subject: '',
-        message: '',
-      })
+        name: "",
+        email: "",
+        phone: "",
+        subject: "",
+        message: "",
+      });
       // Reset success message after 5 seconds
-      setTimeout(() => setSubmitted(false), 5000)
+      setTimeout(() => setSubmitted(false), 5000);
     } catch (error) {
-      console.error('Error submitting form:', error)
+      console.error("Error submitting form:", error);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   const contactInfo = [
     {
       icon: Mail,
-      title: 'Email',
-      content: 'info@lensclick.com',
-      description: 'Send us an email and we\'ll respond within 24 hours',
+      title: "Email",
+      content: "info@lensclick.com",
+      description: "Send us an email and we'll respond within 24 hours",
     },
     {
       icon: Phone,
-      title: 'Phone',
-      content: '(555) 123-4567',
-      description: 'Call us during business hours for immediate assistance',
+      title: "Phone",
+      content: "(555) 123-4567",
+      description: "Call us during business hours for immediate assistance",
     },
     {
       icon: MapPin,
-      title: 'Location',
-      content: '123 Photography Lane, City',
-      description: 'Visit us for consultations and portfolio viewing',
+      title: "Location",
+      content: "123 Photography Lane, City",
+      description: "Visit us for consultations and portfolio viewing",
     },
     {
       icon: Clock,
-      title: 'Hours',
-      content: 'Mon - Fri: 9AM - 6PM',
-      description: 'Weekends available for events and consultations',
+      title: "Hours",
+      content: "Mon - Fri: 9AM - 6PM",
+      description: "Weekends available for events and consultations",
     },
-  ]
+  ];
 
   const faqs = [
     {
-      question: 'What is your booking process?',
+      question: "What is your booking process?",
       answer:
-        'Our booking process is simple. Select your preferred date and service package on our booking page, fill in your event details, and complete the payment. You\'ll receive a confirmation email with all the details.',
+        "Our booking process is simple. Select your preferred date and service package on our booking page, fill in your event details, and complete the payment. You'll receive a confirmation email with all the details.",
     },
     {
-      question: 'When will I receive my edited photos?',
+      question: "When will I receive my edited photos?",
       answer:
-        'We deliver edited photos within 2-4 weeks of your event. For urgent deliveries, we offer a rush service at an additional cost with a 1-week turnaround.',
+        "We deliver edited photos within 2-4 weeks of your event. For urgent deliveries, we offer a rush service at an additional cost with a 1-week turnaround.",
     },
     {
-      question: 'Do you offer videography services?',
+      question: "Do you offer videography services?",
       answer:
-        'Yes, we offer professional videography as an add-on to our photography packages. This includes highlight reels and full event videos with professional editing.',
+        "Yes, we offer professional videography as an add-on to our photography packages. This includes highlight reels and full event videos with professional editing.",
     },
     {
-      question: 'What happens if I\'m not satisfied with the photos?',
+      question: "What happens if I'm not satisfied with the photos?",
       answer:
-        'We offer a 100% satisfaction guarantee. If you\'re not happy with your photos, we\'ll work with you to retake shots or provide a full refund.',
+        "We offer a 100% satisfaction guarantee. If you're not happy with your photos, we'll work with you to retake shots or provide a full refund.",
     },
     {
-      question: 'Can you travel for events?',
+      question: "Can you travel for events?",
       answer:
-        'Absolutely! We travel locally and regionally for events. Travel fees may apply for locations outside our service area. Contact us for specific details.',
+        "Absolutely! We travel locally and regionally for events. Travel fees may apply for locations outside our service area. Contact us for specific details.",
     },
     {
-      question: 'Do you provide prints or only digital photos?',
+      question: "Do you provide prints or only digital photos?",
       answer:
-        'We provide digital photos by default. However, our packages include print rights, and we can arrange professional printing or include printed albums in our premium packages.',
+        "We provide digital photos by default. However, our packages include print rights, and we can arrange professional printing or include printed albums in our premium packages.",
     },
-  ]
+  ];
 
   return (
     <div className="min-h-screen bg-background">
@@ -134,8 +144,8 @@ export default function ContactPage() {
               Get In Touch
             </h1>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto text-pretty">
-              Have questions about our services? We'd love to hear from you. Reach out and let's
-              discuss your photography needs.
+              Have questions about our services? We'd love to hear from you.
+              Reach out and let's discuss your photography needs.
             </p>
           </div>
         </div>
@@ -146,23 +156,32 @@ export default function ContactPage() {
         <div className="max-w-6xl mx-auto">
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {contactInfo.map((info, idx) => {
-              const IconComponent = info.icon
+              const IconComponent = info.icon;
               return (
-                <Card key={idx} className="border-border bg-card/50 backdrop-blur hover:border-primary/50 transition-all">
+                <Card
+                  key={idx}
+                  className="border-border bg-card/50 backdrop-blur hover:border-primary/50 transition-all"
+                >
                   <CardContent className="pt-6">
                     <div className="space-y-4">
                       <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
                         <IconComponent className="w-6 h-6 text-primary" />
                       </div>
                       <div>
-                        <h3 className="font-semibold text-foreground mb-1">{info.title}</h3>
-                        <p className="font-medium text-primary mb-2">{info.content}</p>
-                        <p className="text-sm text-muted-foreground">{info.description}</p>
+                        <h3 className="font-semibold text-foreground mb-1">
+                          {info.title}
+                        </h3>
+                        <p className="font-medium text-primary mb-2">
+                          {info.content}
+                        </p>
+                        <p className="text-sm text-muted-foreground">
+                          {info.description}
+                        </p>
                       </div>
                     </div>
                   </CardContent>
                 </Card>
-              )
+              );
             })}
           </div>
         </div>
@@ -178,7 +197,8 @@ export default function ContactPage() {
                 <CardHeader>
                   <CardTitle className="text-2xl">Send us a Message</CardTitle>
                   <CardDescription>
-                    Fill out the form below and we'll get back to you as soon as possible
+                    Fill out the form below and we'll get back to you as soon as
+                    possible
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -187,9 +207,12 @@ export default function ContactPage() {
                       <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto">
                         <CheckCircle className="w-8 h-8 text-primary" />
                       </div>
-                      <h3 className="text-lg font-semibold text-foreground">Message Sent!</h3>
+                      <h3 className="text-lg font-semibold text-foreground">
+                        Message Sent!
+                      </h3>
                       <p className="text-muted-foreground">
-                        Thank you for reaching out. We'll get back to you within 24 hours.
+                        Thank you for reaching out. We'll get back to you within
+                        24 hours.
                       </p>
                     </div>
                   ) : (
@@ -278,7 +301,7 @@ export default function ContactPage() {
                         disabled={loading}
                         className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-medium"
                       >
-                        {loading ? 'Sending...' : 'Send Message'}
+                        {loading ? "Sending..." : "Send Message"}
                         {!loading && <Send className="w-4 h-4 ml-2" />}
                       </Button>
                     </form>
@@ -292,8 +315,12 @@ export default function ContactPage() {
               <div className="h-96 rounded-lg bg-gradient-to-br from-secondary/20 to-secondary/5 border border-border flex items-center justify-center overflow-hidden">
                 <div className="text-center">
                   <MapPin className="w-16 h-16 text-primary/40 mx-auto mb-4" />
-                  <p className="text-muted-foreground">Interactive Map - Google Maps Integration</p>
-                  <p className="text-sm text-muted-foreground mt-2">Replace with actual map embed</p>
+                  <p className="text-muted-foreground">
+                    Interactive Map - Google Maps Integration
+                  </p>
+                  <p className="text-sm text-muted-foreground mt-2">
+                    Replace with actual map embed
+                  </p>
                 </div>
               </div>
 
@@ -304,20 +331,28 @@ export default function ContactPage() {
                 <CardContent>
                   <div className="space-y-3">
                     <div className="flex justify-between items-center">
-                      <span className="text-muted-foreground">Monday - Friday</span>
-                      <span className="font-medium text-foreground">9:00 AM - 6:00 PM</span>
+                      <span className="text-muted-foreground">
+                        Monday - Friday
+                      </span>
+                      <span className="font-medium text-foreground">
+                        9:00 AM - 6:00 PM
+                      </span>
                     </div>
                     <div className="flex justify-between items-center">
                       <span className="text-muted-foreground">Saturday</span>
-                      <span className="font-medium text-foreground">10:00 AM - 4:00 PM</span>
+                      <span className="font-medium text-foreground">
+                        10:00 AM - 4:00 PM
+                      </span>
                     </div>
                     <div className="flex justify-between items-center">
                       <span className="text-muted-foreground">Sunday</span>
-                      <span className="font-medium text-foreground">By Appointment</span>
+                      <span className="font-medium text-foreground">
+                        By Appointment
+                      </span>
                     </div>
                     <p className="text-sm text-muted-foreground pt-3 border-t border-border">
-                      Available for events throughout the week, including weekends with prior
-                      arrangement.
+                      Available for events throughout the week, including
+                      weekends with prior arrangement.
                     </p>
                   </div>
                 </CardContent>
@@ -341,13 +376,21 @@ export default function ContactPage() {
 
           <div className="space-y-4">
             {faqs.map((faq, idx) => (
-              <Card key={idx} className="border-border bg-card/50 backdrop-blur">
+              <Card
+                key={idx}
+                className="border-border bg-card/50 backdrop-blur"
+              >
                 <CardContent className="pt-6">
                   <details className="group">
                     <summary className="flex cursor-pointer items-center justify-between font-semibold text-foreground hover:text-primary transition-colors">
                       {faq.question}
                       <span className="transition-transform group-open:rotate-180">
-                        <svg className="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                        <svg
+                          className="h-5 w-5"
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 20 20"
+                          fill="currentColor"
+                        >
                           <path
                             fillRule="evenodd"
                             d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
@@ -356,7 +399,9 @@ export default function ContactPage() {
                         </svg>
                       </span>
                     </summary>
-                    <p className="text-muted-foreground mt-4 text-sm leading-relaxed">{faq.answer}</p>
+                    <p className="text-muted-foreground mt-4 text-sm leading-relaxed">
+                      {faq.answer}
+                    </p>
                   </details>
                 </CardContent>
               </Card>
@@ -373,8 +418,8 @@ export default function ContactPage() {
               Ready to Book?
             </h2>
             <p className="text-lg text-muted-foreground text-pretty">
-              Don't wait! Reserve your photography session today and let us capture your most
-              precious moments.
+              Don't wait! Reserve your photography session today and let us
+              capture your most precious moments.
             </p>
           </div>
 
@@ -386,11 +431,7 @@ export default function ContactPage() {
             >
               <Link href="/book">Book Now</Link>
             </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              asChild
-            >
+            <Button size="lg" variant="outline" asChild>
               <Link href="/services">View Services</Link>
             </Button>
           </div>
@@ -417,17 +458,26 @@ export default function ContactPage() {
               <h4 className="font-semibold text-foreground">Services</h4>
               <ul className="space-y-2 text-sm">
                 <li>
-                  <Link href="/services" className="text-muted-foreground hover:text-foreground transition-colors">
+                  <Link
+                    href="/services"
+                    className="text-muted-foreground hover:text-foreground transition-colors"
+                  >
                     Wedding Photography
                   </Link>
                 </li>
                 <li>
-                  <Link href="/services" className="text-muted-foreground hover:text-foreground transition-colors">
+                  <Link
+                    href="/services"
+                    className="text-muted-foreground hover:text-foreground transition-colors"
+                  >
                     Birthday Photography
                   </Link>
                 </li>
                 <li>
-                  <Link href="/services" className="text-muted-foreground hover:text-foreground transition-colors">
+                  <Link
+                    href="/services"
+                    className="text-muted-foreground hover:text-foreground transition-colors"
+                  >
                     Event Coverage
                   </Link>
                 </li>
@@ -438,17 +488,26 @@ export default function ContactPage() {
               <h4 className="font-semibold text-foreground">Company</h4>
               <ul className="space-y-2 text-sm">
                 <li>
-                  <Link href="/services" className="text-muted-foreground hover:text-foreground transition-colors">
+                  <Link
+                    href="/services"
+                    className="text-muted-foreground hover:text-foreground transition-colors"
+                  >
                     Services
                   </Link>
                 </li>
                 <li>
-                  <Link href="/contact" className="text-muted-foreground hover:text-foreground transition-colors">
+                  <Link
+                    href="/contact"
+                    className="text-muted-foreground hover:text-foreground transition-colors"
+                  >
                     Contact
                   </Link>
                 </li>
                 <li>
-                  <Link href="/" className="text-muted-foreground hover:text-foreground transition-colors">
+                  <Link
+                    href="/"
+                    className="text-muted-foreground hover:text-foreground transition-colors"
+                  >
                     About Us
                   </Link>
                 </li>
@@ -471,5 +530,5 @@ export default function ContactPage() {
         </div>
       </footer>
     </div>
-  )
+  );
 }

@@ -1,11 +1,20 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { Calendar, MapPin, Clock, CheckCircle, XCircle, Mail, Phone, Eye } from 'lucide-react'
+import { useState } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  Calendar,
+  MapPin,
+  Clock,
+  CheckCircle,
+  XCircle,
+  Mail,
+  Phone,
+  Eye,
+} from "lucide-react";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -14,108 +23,122 @@ import {
   AlertDialogDescription,
   AlertDialogHeader,
   AlertDialogTitle,
-} from '@/components/ui/alert-dialog'
-import type { Appointment } from '@/types'
+} from "@/components/ui/alert-dialog";
+import type { Appointment } from "@/types";
 
 export default function AppointmentsPage() {
   const [appointments, setAppointments] = useState<Appointment[]>([
     {
-      id: '1',
-      customerId: 'customer-1',
-      serviceId: 'service-1',
-      eventType: 'wedding',
-      eventDate: new Date('2024-05-15'),
-      eventTime: '10:00 AM',
-      eventLocation: 'Grand Banquet Hall, Delhi',
-      eventDescription: 'Wedding reception',
-      organizerName: 'Raj Kumar',
-      organizerEmail: 'raj@example.com',
-      status: 'pending',
+      id: "1",
+      customerId: "customer-1",
+      serviceId: "service-1",
+      eventType: "wedding",
+      eventDate: new Date("2024-05-15"),
+      eventTime: "10:00 AM",
+      eventLocation: "Grand Banquet Hall, Delhi",
+      eventDescription: "Wedding reception",
+      organizerName: "Raj Kumar",
+      organizerEmail: "raj@example.com",
+      status: "pending",
       totalPrice: 50000,
-      createdAt: new Date('2024-01-15'),
-      updatedAt: new Date('2024-01-15'),
+      createdAt: new Date("2024-01-15"),
+      updatedAt: new Date("2024-01-15"),
     },
     {
-      id: '2',
-      customerId: 'customer-2',
-      serviceId: 'service-2',
-      eventType: 'birthday',
-      eventDate: new Date('2024-03-20'),
-      eventTime: '02:00 PM',
-      eventLocation: 'Home, Mumbai',
-      eventDescription: 'Birthday party',
-      organizerName: 'Priya Sharma',
-      organizerEmail: 'priya@example.com',
-      status: 'confirmed',
+      id: "2",
+      customerId: "customer-2",
+      serviceId: "service-2",
+      eventType: "birthday",
+      eventDate: new Date("2024-03-20"),
+      eventTime: "02:00 PM",
+      eventLocation: "Home, Mumbai",
+      eventDescription: "Birthday party",
+      organizerName: "Priya Sharma",
+      organizerEmail: "priya@example.com",
+      status: "confirmed",
       totalPrice: 5000,
-      createdAt: new Date('2024-02-10'),
-      updatedAt: new Date('2024-02-15'),
+      createdAt: new Date("2024-02-10"),
+      updatedAt: new Date("2024-02-15"),
     },
     {
-      id: '3',
-      customerId: 'customer-3',
-      serviceId: 'service-3',
-      eventType: 'convocation',
-      eventDate: new Date('2024-04-10'),
-      eventTime: '09:00 AM',
-      eventLocation: 'University Auditorium, Bangalore',
-      eventDescription: 'Annual convocation ceremony',
-      organizerName: 'Dr. Vikram Singh',
-      organizerEmail: 'vikram@university.edu',
-      status: 'confirmed',
+      id: "3",
+      customerId: "customer-3",
+      serviceId: "service-3",
+      eventType: "convocation",
+      eventDate: new Date("2024-04-10"),
+      eventTime: "09:00 AM",
+      eventLocation: "University Auditorium, Bangalore",
+      eventDescription: "Annual convocation ceremony",
+      organizerName: "Dr. Vikram Singh",
+      organizerEmail: "vikram@university.edu",
+      status: "confirmed",
       totalPrice: 25000,
-      createdAt: new Date('2024-01-20'),
-      updatedAt: new Date('2024-02-01'),
+      createdAt: new Date("2024-01-20"),
+      updatedAt: new Date("2024-02-01"),
     },
-  ])
+  ]);
 
-  const [selectedAppointment, setSelectedAppointment] = useState<Appointment | null>(null)
-  const [showDialog, setShowDialog] = useState(false)
-  const [dialogAction, setDialogAction] = useState<'confirm' | 'reject'>('confirm')
+  const [selectedAppointment, setSelectedAppointment] =
+    useState<Appointment | null>(null);
+  const [showDialog, setShowDialog] = useState(false);
+  const [dialogAction, setDialogAction] = useState<"confirm" | "reject">(
+    "confirm",
+  );
 
-  const pendingAppointments = appointments.filter(a => a.status === 'pending')
-  const confirmedAppointments = appointments.filter(a => a.status === 'confirmed')
-  const completedAppointments = appointments.filter(a => a.status === 'completed')
+  const pendingAppointments = appointments.filter(
+    (a) => a.status === "pending",
+  );
+  const confirmedAppointments = appointments.filter(
+    (a) => a.status === "confirmed",
+  );
+  const completedAppointments = appointments.filter(
+    (a) => a.status === "completed",
+  );
 
   const handleConfirm = (appointment: Appointment) => {
-    setSelectedAppointment(appointment)
-    setDialogAction('confirm')
-    setShowDialog(true)
-  }
+    setSelectedAppointment(appointment);
+    setDialogAction("confirm");
+    setShowDialog(true);
+  };
 
   const handleReject = (appointment: Appointment) => {
-    setSelectedAppointment(appointment)
-    setDialogAction('reject')
-    setShowDialog(true)
-  }
+    setSelectedAppointment(appointment);
+    setDialogAction("reject");
+    setShowDialog(true);
+  };
 
   const confirmAction = () => {
-    if (!selectedAppointment) return
+    if (!selectedAppointment) return;
 
-    setAppointments(appointments.map(a =>
-      a.id === selectedAppointment.id
-        ? { ...a, status: dialogAction === 'confirm' ? 'confirmed' : 'cancelled' }
-        : a
-    ))
+    setAppointments(
+      appointments.map((a) =>
+        a.id === selectedAppointment.id
+          ? {
+              ...a,
+              status: dialogAction === "confirm" ? "confirmed" : "cancelled",
+            }
+          : a,
+      ),
+    );
 
-    setShowDialog(false)
-    setSelectedAppointment(null)
-  }
+    setShowDialog(false);
+    setSelectedAppointment(null);
+  };
 
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'pending':
-        return 'bg-yellow-500/20 text-yellow-700'
-      case 'confirmed':
-        return 'bg-green-500/20 text-green-700'
-      case 'completed':
-        return 'bg-blue-500/20 text-blue-700'
-      case 'cancelled':
-        return 'bg-red-500/20 text-red-700'
+      case "pending":
+        return "bg-yellow-500/20 text-yellow-700";
+      case "confirmed":
+        return "bg-green-500/20 text-green-700";
+      case "completed":
+        return "bg-blue-500/20 text-blue-700";
+      case "cancelled":
+        return "bg-red-500/20 text-red-700";
       default:
-        return 'bg-gray-500/20 text-gray-700'
+        return "bg-gray-500/20 text-gray-700";
     }
-  }
+  };
 
   const AppointmentCard = ({ appointment }: { appointment: Appointment }) => (
     <Card className="border-border bg-card">
@@ -123,15 +146,22 @@ export default function AppointmentsPage() {
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-4">
           <div>
             <div className="flex items-center gap-3 mb-2">
-              <h3 className="text-lg font-semibold text-foreground capitalize">{appointment.eventType} - {appointment.organizerName}</h3>
+              <h3 className="text-lg font-semibold text-foreground capitalize">
+                {appointment.eventType} - {appointment.organizerName}
+              </h3>
               <Badge className={getStatusColor(appointment.status)}>
-                {appointment.status.charAt(0).toUpperCase() + appointment.status.slice(1)}
+                {appointment.status.charAt(0).toUpperCase() +
+                  appointment.status.slice(1)}
               </Badge>
             </div>
-            <p className="text-sm text-muted-foreground">{appointment.eventDescription}</p>
+            <p className="text-sm text-muted-foreground">
+              {appointment.eventDescription}
+            </p>
           </div>
           <div className="text-right">
-            <p className="text-2xl font-bold text-primary">₹{appointment.totalPrice.toLocaleString()}</p>
+            <p className="text-2xl font-bold text-primary">
+              ₹{appointment.totalPrice.toLocaleString()}
+            </p>
           </div>
         </div>
 
@@ -142,7 +172,8 @@ export default function AppointmentsPage() {
               <div>
                 <p className="text-xs text-muted-foreground">Date & Time</p>
                 <p className="text-sm font-medium text-foreground">
-                  {appointment.eventDate.toLocaleDateString()} at {appointment.eventTime}
+                  {appointment.eventDate.toLocaleDateString()} at{" "}
+                  {appointment.eventTime}
                 </p>
               </div>
             </div>
@@ -150,7 +181,9 @@ export default function AppointmentsPage() {
               <MapPin className="w-4 h-4 text-muted-foreground" />
               <div>
                 <p className="text-xs text-muted-foreground">Location</p>
-                <p className="text-sm font-medium text-foreground">{appointment.eventLocation}</p>
+                <p className="text-sm font-medium text-foreground">
+                  {appointment.eventLocation}
+                </p>
               </div>
             </div>
           </div>
@@ -160,7 +193,9 @@ export default function AppointmentsPage() {
               <Mail className="w-4 h-4 text-muted-foreground" />
               <div>
                 <p className="text-xs text-muted-foreground">Email</p>
-                <p className="text-sm font-medium text-foreground">{appointment.organizerEmail}</p>
+                <p className="text-sm font-medium text-foreground">
+                  {appointment.organizerEmail}
+                </p>
               </div>
             </div>
             <div className="flex items-center gap-3">
@@ -176,7 +211,7 @@ export default function AppointmentsPage() {
         </div>
 
         <div className="flex flex-wrap gap-2">
-          {appointment.status === 'pending' && (
+          {appointment.status === "pending" && (
             <>
               <Button
                 size="sm"
@@ -196,9 +231,13 @@ export default function AppointmentsPage() {
               </Button>
             </>
           )}
-          {appointment.status === 'confirmed' && (
+          {appointment.status === "confirmed" && (
             <>
-              <Button size="sm" variant="outline" className="gap-2 bg-transparent">
+              <Button
+                size="sm"
+                variant="outline"
+                className="gap-2 bg-transparent"
+              >
                 <Eye className="w-4 h-4" />
                 View Details
               </Button>
@@ -212,8 +251,12 @@ export default function AppointmentsPage() {
               </Button>
             </>
           )}
-          {appointment.status === 'completed' && (
-            <Button size="sm" variant="outline" className="gap-2 bg-transparent">
+          {appointment.status === "completed" && (
+            <Button
+              size="sm"
+              variant="outline"
+              className="gap-2 bg-transparent"
+            >
               <Eye className="w-4 h-4" />
               View Details
             </Button>
@@ -221,13 +264,15 @@ export default function AppointmentsPage() {
         </div>
       </CardContent>
     </Card>
-  )
+  );
 
   return (
     <div className="p-6 space-y-6">
       <div>
         <h1 className="text-3xl font-bold text-foreground">Appointments</h1>
-        <p className="text-muted-foreground mt-2">Manage customer photography bookings and confirmations</p>
+        <p className="text-muted-foreground mt-2">
+          Manage customer photography bookings and confirmations
+        </p>
       </div>
 
       <Tabs defaultValue="pending" className="space-y-6">
@@ -248,19 +293,23 @@ export default function AppointmentsPage() {
             <Card className="border-border bg-card">
               <CardContent className="pt-12 pb-12 text-center">
                 <Calendar className="w-12 h-12 text-muted-foreground/30 mx-auto mb-4" />
-                <h3 className="text-lg font-semibold text-foreground mb-2">No Pending Appointments</h3>
-                <p className="text-muted-foreground">All appointments are confirmed or completed!</p>
+                <h3 className="text-lg font-semibold text-foreground mb-2">
+                  No Pending Appointments
+                </h3>
+                <p className="text-muted-foreground">
+                  All appointments are confirmed or completed!
+                </p>
               </CardContent>
             </Card>
           ) : (
-            pendingAppointments.map(appointment => (
+            pendingAppointments.map((appointment) => (
               <AppointmentCard key={appointment.id} appointment={appointment} />
             ))
           )}
         </TabsContent>
 
         <TabsContent value="confirmed" className="space-y-4">
-          {confirmedAppointments.map(appointment => (
+          {confirmedAppointments.map((appointment) => (
             <AppointmentCard key={appointment.id} appointment={appointment} />
           ))}
         </TabsContent>
@@ -270,12 +319,16 @@ export default function AppointmentsPage() {
             <Card className="border-border bg-card">
               <CardContent className="pt-12 pb-12 text-center">
                 <Calendar className="w-12 h-12 text-muted-foreground/30 mx-auto mb-4" />
-                <h3 className="text-lg font-semibold text-foreground mb-2">No Completed Appointments</h3>
-                <p className="text-muted-foreground">Completed appointments will appear here.</p>
+                <h3 className="text-lg font-semibold text-foreground mb-2">
+                  No Completed Appointments
+                </h3>
+                <p className="text-muted-foreground">
+                  Completed appointments will appear here.
+                </p>
               </CardContent>
             </Card>
           ) : (
-            completedAppointments.map(appointment => (
+            completedAppointments.map((appointment) => (
               <AppointmentCard key={appointment.id} appointment={appointment} />
             ))
           )}
@@ -286,23 +339,31 @@ export default function AppointmentsPage() {
         <AlertDialogContent className="border-border bg-card">
           <AlertDialogHeader>
             <AlertDialogTitle className="text-foreground">
-              {dialogAction === 'confirm' ? 'Confirm Appointment' : 'Reject Appointment'}
+              {dialogAction === "confirm"
+                ? "Confirm Appointment"
+                : "Reject Appointment"}
             </AlertDialogTitle>
             <AlertDialogDescription>
-              {dialogAction === 'confirm'
+              {dialogAction === "confirm"
                 ? `Are you sure you want to confirm the booking for ${selectedAppointment?.organizerName}?`
                 : `Are you sure you want to reject the booking for ${selectedAppointment?.organizerName}?`}
             </AlertDialogDescription>
           </AlertDialogHeader>
-          <AlertDialogCancel className="border-border">Cancel</AlertDialogCancel>
+          <AlertDialogCancel className="border-border">
+            Cancel
+          </AlertDialogCancel>
           <AlertDialogAction
             onClick={confirmAction}
-            className={dialogAction === 'confirm' ? 'bg-green-500 hover:bg-green-600' : 'bg-red-500 hover:bg-red-600'}
+            className={
+              dialogAction === "confirm"
+                ? "bg-green-500 hover:bg-green-600"
+                : "bg-red-500 hover:bg-red-600"
+            }
           >
-            {dialogAction === 'confirm' ? 'Confirm' : 'Reject'}
+            {dialogAction === "confirm" ? "Confirm" : "Reject"}
           </AlertDialogAction>
         </AlertDialogContent>
       </AlertDialog>
     </div>
-  )
+  );
 }

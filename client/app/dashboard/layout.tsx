@@ -1,71 +1,92 @@
-'use client'
+"use client";
 
-import React from "react"
+import React from "react";
 
-import { useState } from 'react'
-import Link from 'next/link'
-import { useRouter } from 'next/navigation'
-import { Menu, X, LogOut, Home, Calendar, Users, ImageIcon, Settings, Camera } from 'lucide-react'
-import { Button } from '@/components/ui/button'
+import { useState } from "react";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
+import {
+  Menu,
+  X,
+  LogOut,
+  Home,
+  Calendar,
+  Users,
+  ImageIcon,
+  Settings,
+  Camera,
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 export default function DashboardLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false)
-  const router = useRouter()
-  const userRole = typeof window !== 'undefined' ? localStorage.getItem('user_role') || 'customer' : 'customer'
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const router = useRouter();
+  const userRole =
+    typeof window !== "undefined"
+      ? localStorage.getItem("user_role") || "customer"
+      : "customer";
 
   const handleLogout = () => {
-    localStorage.removeItem('user_email')
-    localStorage.removeItem('user_role')
-    router.push('/login')
-  }
+    localStorage.removeItem("user_email");
+    localStorage.removeItem("user_role");
+    router.push("/login");
+  };
 
   const getNavItems = () => {
-    const baseItems = [
-      { icon: Home, label: 'Overview', href: '/dashboard' },
-    ]
+    const baseItems = [{ icon: Home, label: "Overview", href: "/dashboard" }];
 
-    if (userRole === 'customer') {
+    if (userRole === "customer") {
       return [
         ...baseItems,
-        { icon: Calendar, label: 'My Bookings', href: '/dashboard/bookings' },
-        { icon: ImageIcon, label: 'My Photos', href: '/dashboard/photos' },
-        { icon: Settings, label: 'Settings', href: '/dashboard/settings' },
-      ]
+        { icon: Calendar, label: "My Bookings", href: "/dashboard/bookings" },
+        { icon: ImageIcon, label: "My Photos", href: "/dashboard/photos" },
+        { icon: Settings, label: "Settings", href: "/dashboard/settings" },
+      ];
     }
 
-    if (userRole === 'admin') {
+    if (userRole === "admin") {
       return [
         ...baseItems,
-        { icon: Calendar, label: 'Appointments', href: '/dashboard/appointments' },
-        { icon: Users, label: 'Customers', href: '/dashboard/customers' },
-        { icon: ImageIcon, label: 'Photo Gallery', href: '/dashboard/gallery' },
-        { icon: Settings, label: 'Settings', href: '/dashboard/settings' },
-      ]
+        {
+          icon: Calendar,
+          label: "Appointments",
+          href: "/dashboard/appointments",
+        },
+        { icon: Users, label: "Customers", href: "/dashboard/customers" },
+        { icon: ImageIcon, label: "Photo Gallery", href: "/dashboard/gallery" },
+        { icon: Settings, label: "Settings", href: "/dashboard/settings" },
+      ];
     }
 
-    if (userRole === 'organizer') {
+    if (userRole === "organizer") {
       return [
         ...baseItems,
-        { icon: ImageIcon, label: 'My Photos', href: '/dashboard/organizer-photos' },
-        { icon: Settings, label: 'Settings', href: '/dashboard/settings' },
-      ]
+        {
+          icon: ImageIcon,
+          label: "My Photos",
+          href: "/dashboard/organizer-photos",
+        },
+        { icon: Settings, label: "Settings", href: "/dashboard/settings" },
+      ];
     }
 
-    return baseItems
-  }
+    return baseItems;
+  };
 
-  const navItems = getNavItems()
+  const navItems = getNavItems();
 
   return (
     <div className="flex h-screen bg-background">
       {/* Sidebar */}
-      <aside className={`fixed md:static w-64 h-screen bg-card border-r border-border flex flex-col transition-transform duration-300 z-40 ${
-        isSidebarOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'
-      }`}>
+      <aside
+        className={`fixed md:static w-64 h-screen bg-card border-r border-border flex flex-col transition-transform duration-300 z-40 ${
+          isSidebarOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"
+        }`}
+      >
         {/* Logo */}
         <div className="h-16 flex items-center justify-between px-6 border-b border-border">
           <Link href="/dashboard" className="flex items-center gap-2 group">
@@ -133,10 +154,8 @@ export default function DashboardLayout({
         </header>
 
         {/* Page Content */}
-        <main className="flex-1 overflow-y-auto">
-          {children}
-        </main>
+        <main className="flex-1 overflow-y-auto">{children}</main>
       </div>
     </div>
-  )
+  );
 }
