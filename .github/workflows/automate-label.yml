@@ -1,12 +1,10 @@
 name: Label Pull Requests
 on:
-  push:
-    branches: [main, develop]
   pull_request:
-    types: [opened, edited, reopened, synchronize]
-  workflow_dispatch:
-  schedule:
-    - cron: "0 12 * * 1" # Runs every Monday at noon
+    types: [opened, reopened, synchronize]
+permissions:
+  contents: read
+  pull-requests: write
 
 jobs:
   label-pr:
@@ -14,7 +12,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v5.0.0
+        uses: actions/checkout@v5
 
       - name: Label Pull Request
         uses: actions-ecosystem/action-add-labels@v1
